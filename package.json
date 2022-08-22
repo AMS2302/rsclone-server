@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "lint": "eslint . --fix --ext .js"
   },
@@ -11,5 +12,8 @@
     "url": "git+https://github.com/AMS2302/rsclone-server.git"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.1"
+  }
 }
