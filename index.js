@@ -3,6 +3,8 @@ import http from 'http';
 import { Server } from 'socket.io';
 import cors from 'cors';
 
+import multiplayer from './scripts/multiplayer/multiplayer.js';
+
 const PORT = process.env.PORT || 3000;
 const ALLOWED_ORIGIN = `http://localhost:${PORT}`;
 const app = express();
@@ -23,15 +25,17 @@ const io = new Server(server, {
 
 // * ================= testing if server is working ================
 
-io.on('connection', (socket) => {
-    console.log('...a user connected');
-    socket.on('disconnect', () => {
-        console.log('...user disconnected');
-    });
-});
+// io.on('connection', (socket) => {
+//     console.log('...a user connected');
+//     socket.on('disconnect', () => {
+//         console.log('...user disconnected');
+//     });
+// });
 
 server.listen(PORT, () => {
     console.log(`Server started on port ${PORT}...`);
 });
 
 // * ===============================================================
+
+io.on('connection', multiplayer);
