@@ -1,0 +1,15 @@
+{
+  "users": [
+    {
+      "id": 0,
+      "name": "agtugchik",
+      "password": "123",
+      "options": {
+        "volume": "8",
+        "language": "ru"
+      },
+      "achives": {}
+    }
+  ],
+  "leaders": []
+}
