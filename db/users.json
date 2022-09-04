@@ -2,13 +2,51 @@
   "users": [
     {
       "id": 0,
-      "name": "agtugchik",
-      "password": "123",
+      "name": "Энекей Скавародкер",
+      "password": "adsa",
       "options": {
-        "volume": "8",
-        "language": "ru"
+        "volume": "50",
+        "language": "en"
       },
-      "achives": {}
+      "achives": {
+        "youdidit": "true",
+        "blackspot": "true",
+        "pirate": "true",
+        "whatabottle": "false",
+        "undying": "false"
+      }
+    },
+    {
+      "id": 1,
+      "name": "Муча Кусара",
+      "password": "asdsad",
+      "options": {
+        "volume": "50",
+        "language": "en"
+      },
+      "achives": {
+        "youdidit": "true",
+        "blackspot": "true",
+        "pirate": "false",
+        "whatabottle": "false",
+        "undying": "false"
+      }
+    },
+    {
+      "id": 2,
+      "name": "Рзъяренный краб",
+      "password": "adsd",
+      "options": {
+        "volume": "50",
+        "language": "en"
+      },
+      "achives": {
+        "youdidit": "true",
+        "blackspot": "false",
+        "pirate": "false",
+        "whatabottle": "false",
+        "undying": "false"
+      }
     }
   ],
   "leaders": []

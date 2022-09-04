@@ -1,7 +1,6 @@
 import { Router } from 'express';
 import * as fs from 'fs';
 import db from '../db/users.json' assert { type: "json" };
-// import User from '../db/user';
 
 const router = Router();
 
@@ -14,13 +13,15 @@ class User {
       volume: '50',
       language: 'en'
     };
-    this.achives = {};
+    this.achives = {
+      youdidit: 'false',
+      blackspot: 'false',
+      pirate: 'false',
+      whatabottle: 'false',
+      undying: 'false',
+    };
   }
 }
-
-router.get('/usersGet', (req, res) => {
-  res.json(db.users)
-});
 
 router.get('/userGet/:name&:pass', (req, res) => {
   const user = db.users.find((user) => user.name === req.params.name);
@@ -48,9 +49,9 @@ router.get('/userReg/:name&:pass', (req, res) => {
 });
 
 router.post('/pushUser/:id', (req, res) => {
-    const user = req.body;
-    db.users[user.id] = user;
-    fs.writeFile('./db/users.json', JSON.stringify(db), 'utf-8',
+  const user = req.body;
+  db.users[user.id] = user;
+  fs.writeFile('./db/users.json', JSON.stringify(db), 'utf-8',
     (err, data) => {
       if (err) throw err;
       console.log(data);
@@ -58,14 +59,17 @@ router.post('/pushUser/:id', (req, res) => {
   res.status(201).send();
 });
 
-router.post('/usersPost', (req, res) => {
-  const request = req.body;
-  fs.writeFile('./db/users.json', JSON.stringify(request), 'utf-8',
-    (err, data) => {
-      if (err) throw err;
-      console.log(data);
-    });
-  res.status(201).send();
+router.get('/getLeaders', (req, res) => {
+  const leaders = [];
+    db.users.forEach((user) => {
+      let points = 0;
+      for (const key in user.achives) {
+        if (user.achives[key] === 'true') points++;
+      }
+      leaders.push([user.name, points]);
+    })
+    leaders.sort((a, b) => b[1] - a[1]);
+    res.json(leaders);
 });
 
 export default router;
