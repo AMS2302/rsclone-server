@@ -12,7 +12,7 @@ function getPlayerNumber(array) {
 
     return number;
 }
-
+const users = {};
 export default function multiplayer(socket) {
     console.log('multiplayer is started...');
 
@@ -65,5 +65,12 @@ export default function multiplayer(socket) {
     socket.on('fire-reply', (reply) => {
         console.log(reply);
         socket.broadcast.emit('fire-reply', reply);
+    });
+    socket.on('new-user', (name) => {
+        users[socket.id] = name;
+        socket.broadcast.emit('user-connected', name);
+    });
+    socket.on('send-chat-message', (message) => {
+        socket.broadcast.emit('chat-message', { message: message, name: users[socket.id] });
     });
 }
