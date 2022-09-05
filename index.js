@@ -2,13 +2,26 @@ import express from 'express';
 import http from 'http';
 import { Server } from 'socket.io';
 import cors from 'cors';
-
+import serverRoutes from './routes/servers.js';
 import multiplayer from './scripts/multiplayer/multiplayer.js';
 
 const PORT = process.env.PORT || 3000;
 const ALLOWED_ORIGIN = `http://localhost:${PORT}`;
 const app = express();
 const server = http.createServer(app);
+
+// const io = new Server(server);
+app.use(
+    cors({
+        origin: '*',
+        credentials: true,
+        optionSuccessStatus: 200,
+    })
+);
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(serverRoutes);
 
 app.use(
     cors({
