@@ -62,8 +62,8 @@ export default function multiplayer(socket) {
         socket.broadcast.emit('fire', id);
     });
 
-    socket.on('fire-reply', (square) => {
-        console.log(square);
-        socket.broadcast.emit('fire-reply', square);
+    socket.on('fire-reply', (reply) => {
+        console.log(reply);
+        socket.broadcast.emit('fire-reply', reply);
     });
 }
