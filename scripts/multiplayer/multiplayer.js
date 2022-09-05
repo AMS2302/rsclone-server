@@ -18,7 +18,10 @@ export default function multiplayer(socket) {
 
     let playerNumber = getPlayerNumber(connections);
 
-    socket.emit('player-number', playerNumber);
+    socket.emit('player-number', {
+        player: playerNumber,
+        status: 'connected',
+    });
 
     console.log(`Player ${playerNumber} connected`);
 
@@ -26,13 +29,26 @@ export default function multiplayer(socket) {
 
     connections[playerNumber] = false;
 
-    socket.broadcast.emit('player-connection', `${playerNumber} connected`);
-    // todo: изменить второй параметр в зависимоти от реализации на клиенте
+    socket.broadcast.emit('player-connection', {
+        player: playerNumber,
+        status: 'connected',
+    });
 
     socket.on('disconnect', () => {
         console.log(`Player ${playerNumber} disconnected`);
         connections[playerNumber] = null;
-        socket.broadcast.emit('player-connection', `${playerNumber} disconnected`);
+        socket.broadcast.emit('player-connection', {
+            player: playerNumber,
+            status: 'disconnected',
+        });
+    });
+
+    socket.on('check-players', () => {
+        const players = [];
+        for (const i in connections) {
+            connections[i] === null ? players.push('disconnected') : players.push('connected');
+        }
+        socket.emit('check-players', players);
     });
 
     socket.on('player-ready', () => {
@@ -46,8 +62,8 @@ export default function multiplayer(socket) {
         socket.broadcast.emit('fire', id);
     });
 
-    socket.on('fire-reply', (square) => {
-        console.log(square);
-        socket.broadcast.emit('fire-reply', square);
+    socket.on('fire-reply', (reply) => {
+        console.log(reply);
+        socket.broadcast.emit('fire-reply', reply);
     });
 }
